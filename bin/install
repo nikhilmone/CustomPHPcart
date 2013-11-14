@@ -19,16 +19,16 @@ pear -c ${OPENSHIFT_HOMEDIR}/.pearrc config-set ext_dir ${OPENSHIFT_PHP_DIR}/php
 pear -c ${OPENSHIFT_HOMEDIR}/.pearrc config-set auto_discover 1
 ##
 ## Custom installation below
-mkdir -p ${OPENSHIFT_PHP_DIR}/phplib/modules
-cp -r ${OPENSHIFT_PHP_DIR}/versions/shared/libicu/lib64/pkgconfig ${OPENSHIFT_HOMEDIR}
-tmpfile=`mktemp`
-echo "OPENSHIFT_PHP_DIR=${OPENSHIFT_PHP_DIR}" | cat - ${OPENSHIFT_HOMEDIR}/pkgconfig/icu.pc > $tmpfile
-mv $tmpfile ${OPENSHIFT_HOMEDIR}/pkgconfig/icu.pc
-export PKG_CONFIG_PATH=${OPENSHIFT_HOMEDIR}/pkgconfig/
-mkdir -p ${OPENSHIFT_PHP_DIR}/phplib/bin
-cp /usr/bin/php-config ${OPENSHIFT_PHP_DIR}/phplib/bin/php-config
-sed -i "s#^extension_dir=.*#extension_dir='${OPENSHIFT_PHP_DIR}/phplib/modules'#" ${OPENSHIFT_PHP_DIR}/phplib/bin/php-config
-sed -i "s#^prefix=.*#prefix='/'#" ${OPENSHIFT_PHP_DIR}/phplib/bin/php-config
-export PATH=${OPENSHIFT_PHP_DIR}/phplib/bin:$PATH
-echo -e "${OPENSHIFT_PHP_DIR}/versions/shared/libicu\n" | pear -C ${OPENSHIFT_HOMEDIR}/.pearrc install pecl/intl > /tmp/pear.log
+#mkdir -p ${OPENSHIFT_PHP_DIR}/phplib/modules
+#cp -r ${OPENSHIFT_PHP_DIR}/versions/shared/libicu/lib64/pkgconfig ${OPENSHIFT_HOMEDIR}
+#tmpfile=`mktemp`
+#echo "OPENSHIFT_PHP_DIR=${OPENSHIFT_PHP_DIR}" | cat - ${OPENSHIFT_HOMEDIR}/pkgconfig/icu.pc > $tmpfile
+#mv $tmpfile ${OPENSHIFT_HOMEDIR}/pkgconfig/icu.pc
+#export PKG_CONFIG_PATH=${OPENSHIFT_HOMEDIR}/pkgconfig/
+#mkdir -p ${OPENSHIFT_PHP_DIR}/phplib/bin
+#cp /usr/bin/php-config ${OPENSHIFT_PHP_DIR}/phplib/bin/php-config
+#sed -i "s#^extension_dir=.*#extension_dir='${OPENSHIFT_PHP_DIR}/phplib/modules'#" ${OPENSHIFT_PHP_DIR}/phplib/bin/php-config
+#sed -i "s#^prefix=.*#prefix='/'#" ${OPENSHIFT_PHP_DIR}/phplib/bin/php-config
+#export PATH=${OPENSHIFT_PHP_DIR}/phplib/bin:$PATH
+#echo -e "${OPENSHIFT_PHP_DIR}/versions/shared/libicu\n" | pear -C ${OPENSHIFT_HOMEDIR}/.pearrc install pecl/intl > /tmp/pear.log
 ###
