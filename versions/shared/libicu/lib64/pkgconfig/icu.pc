@@ -1,0 +1,45 @@
+prefix = ${OPENSHIFT_PHP_DIR}/versions/shared/libicu/
+bindir = ${OPENSHIFT_PHP_DIR}/versions/shared/libicu/bin
+libdir = ${OPENSHIFT_PHP_DIR}/versions/shared/libicu/lib64
+includedir = ${OPENSHIFT_PHP_DIR}/versions/shared/libicu/include
+datadir = ${OPENSHIFT_PHP_DIR}/versions/shared/libicu/share
+sbindir = /usr/sbin
+mandir = ${OPENSHIFT_PHP_DIR}/versions/shared/libicu/share/man
+sysconfdir = /etc
+CFLAGS = -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic -fno-strict-aliasing -Wall -ansi -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -Wno-long-long $(THREADSCFLAGS) 
+CXXFLAGS = -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic -fno-strict-aliasing -W -Wall -ansi -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long  
+DEFS = -DHAVE_CONFIG_H 
+UNICODE_VERSION=5.1
+ICUPREFIX=icu
+ICULIBSUFFIX=
+LIBICU=lib${ICUPREFIX}
+LIBCPPFLAGS=-D_REENTRANT
+CPPFLAGS= -D_REENTRANT ${LIBCPPFLAGS} -I${prefix}/include
+SHAREDLIBCPPFLAGS=-DPIC
+SHAREDLIBCXXFLAGS=-fPIC
+SHAREDLIBCFLAGS=-fPIC
+pkglibdir=${libdir}/icu${ICULIBSUFFIX}/4.2.1
+pkgdatadir=${datadir}/icu${ICULIBSUFFIX}/4.2.1
+ICUDATA_NAME = icudt42l
+ICUPKGDATA_DIR=/usr/lib64
+ICUDATA_DIR=${pkgdatadir}
+SO=so
+ICULIBS_COMMON_LIB_NAME=${LIBICU}uc${ICULIBSUFFIX}.${SO}
+SHLIB_cc=cxx ${DEFS} ${CPPFLAGS} ${CXXFLAGS}  -shared
+SHLIB_c=cc ${DEFS} ${CPPFLAGS} ${CFLAGS}  -shared
+ICULIBS_LAYOUT = -l${ICUPREFIX}le${ICULIBSUFFIX} -l${ICUPREFIX}lx${ICULIBSUFFIX}
+ICULIBS_TOOLUTIL = -l${ICUPREFIX}tu${ICULIBSUFFIX}
+ICULIBS_OBSOLETE = -l${ICUPREFIX}obsolete${ICULIBSUFFIX}
+ICULIBS_ICUIO = -l${ICUPREFIX}io${ICULIBSUFFIX}
+ICULIBS_I18N = -l${ICUPREFIX}i18n${ICULIBSUFFIX}
+ICULIBS_COMMON = -l${ICUPREFIX}uc${ICULIBSUFFIX}
+ICULIBS_DATA = -l${ICUPREFIX}data${ICULIBSUFFIX}
+ICULIBS_LIBSONLY = ${ICULIBS_I18N} ${ICULIBS_COMMON} ${ICULIBS_DATA}
+ICULIBS_SYSTEMLIBS = -lpthread -lm 
+ICULIBS_BASE = -lpthread -lm  -L${libdir}
+ICULIBS = ${ICULIBS_BASE} ${ICULIBS_I18N} ${ICULIBS_COMMON} ${ICULIBS_DATA}
+
+Name: icu
+Description: International Components for Unicode
+Version: 4.2.1
+Libs:  ${ICULIBS} -lpthread -lm 
